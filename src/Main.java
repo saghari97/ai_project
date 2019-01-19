@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -15,7 +16,7 @@ public class Main {
     private static void printmap(GameMap map) {
         for (int i = 0; i < map.rows; i++) {
             for (int j = 0; j < map.columns; j++) {
-                map.getmapCells().get(i*(map.rows)+j).showState();
+                map.getmapCells().get(i).get(j).showState();
             }
             System.out.println(" ");
         }
@@ -30,21 +31,25 @@ public class Main {
     }
 
     private static void setVacantCells(GameMap map) {
-        for (MapCell cell :
+        for (ArrayList<MapCell> cells :
                 map.getmapCells()) {
-            if (cell.vacancy)
-                cell.object = MapCell.entitiy.vacant;
+            for (MapCell item : cells) {
+                if (item.vacancy)
+                    item.object = MapCell.entitiy.vacant;
+            }
         }
     }
 
     private static void setWolf(GameMap map) {
         boolean done = false;
-        int instance;
+        int i;
+        int j;
         while (!done) {
-            instance = (int) (Math.random() * (map.rows * map.columns + 1) + 1);
-            if (map.getmapCells().get(instance).vacancy) {
-                map.getmapCells().get(instance).object = MapCell.entitiy.wolf;
-                map.getmapCells().get(instance).vacancy = false;
+            i = (int) (Math.random() * (map.rows));
+            j = (int) (Math.random() * (map.columns));
+            if (map.getmapCells().get(i).get(j).vacancy) {
+                map.getmapCells().get(i).get(j).object = MapCell.entitiy.wolf;
+                map.getmapCells().get(i).get(j).vacancy = false;
                 done = true;
             }
         }
@@ -52,27 +57,31 @@ public class Main {
 
     private static void setBarn(GameMap map) {
         boolean done = false;
-        int instance;
+        int i;
+        int j;
         while (!done) {
-            instance = (int) (Math.random() * (map.rows * map.columns) + 1);
-            if (map.getmapCells().get(instance).vacancy) {
-                map.getmapCells().get(instance).object = MapCell.entitiy.barn;
-                map.getmapCells().get(instance).vacancy = false;
+            i = (int) (Math.random() * (map.rows));
+            j = (int) (Math.random() * (map.columns));
+            if (map.getmapCells().get(i).get(j).vacancy) {
+                map.getmapCells().get(i).get(j).object = MapCell.entitiy.barn;
+                map.getmapCells().get(i).get(j).vacancy = false;
                 done = true;
             }
         }
     }
 
     private static void setSticks(GameMap map, int sticksNumber) {
-        int instance;
+        int i;
+        int j;
         boolean done;
-        for (int i = 0; i < sticksNumber; i++) {
+        for (int k = 0; k < sticksNumber; k++) {
             done = false;
             while (!done) {
-                instance = (int) (Math.random() * (map.rows * map.columns)+1);
-                if (map.getmapCells().get(instance).vacancy) {
-                    map.getmapCells().get(instance).object = MapCell.entitiy.stick;
-                    map.getmapCells().get(instance).vacancy = false;
+                i = (int) (Math.random() * (map.rows));
+                j = (int) (Math.random() * (map.columns));
+                if (map.getmapCells().get(i).get(j).vacancy) {
+                    map.getmapCells().get(i).get(j).object = MapCell.entitiy.stick;
+                    map.getmapCells().get(i).get(j).vacancy = false;
                     done = true;
                 }
             }
@@ -80,15 +89,17 @@ public class Main {
     }
 
     private static void setCows(GameMap map, int cowsNumber) {
-        int instance;
+        int i;
+        int j;
         boolean done;
-        for (int i = 0; i < cowsNumber; i++) {
+        for (int k = 0; k < cowsNumber; k++) {
             done = false;
+            i = (int) (Math.random() * (map.rows));
+            j = (int) (Math.random() * (map.columns));
             while (!done) {
-                instance = (int) (Math.random() * (map.rows * map.columns) + 1);
-                if (map.getmapCells().get(instance).vacancy) {
-                    map.getmapCells().get(instance).object = MapCell.entitiy.cow;
-                    map.getmapCells().get(instance).vacancy = false;
+                if (map.getmapCells().get(i).get(j).vacancy) {
+                    map.getmapCells().get(i).get(j).object = MapCell.entitiy.cow;
+                    map.getmapCells().get(i).get(j).vacancy = false;
                     done = true;
                 }
             }
