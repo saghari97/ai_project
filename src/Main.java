@@ -1,5 +1,9 @@
+package far;
 import java.util.ArrayList;
 import java.util.Random;
+import far.Environment.Action;
+import far.Environment.Element;
+import far.Environment.Perception;
 
 
 public class Main {
